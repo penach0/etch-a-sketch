@@ -16,3 +16,7 @@
     border: 0.5px solid;
     flex-grow: 1;
 }
+
+.colored {
+    background-color: blueviolet;
+}

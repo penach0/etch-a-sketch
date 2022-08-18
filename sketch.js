@@ -11,5 +11,8 @@ for(let i = 0; i < 16; i++){
         squares[j].classList.add('square');
         lines[i].appendChild(squares[j]);
         }
-    
     }
+
+squares = [...document.getElementsByClassName('square')];
+
+squares.forEach((square) => square.addEventListener('mouseover', () => square.classList.add('colored')));
