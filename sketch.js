@@ -3,6 +3,13 @@ let lines = [];
 let squares = [];
 let initialSize = 16;
 
+createGrid(initialSize);
+
+const button = document.getElementById('button');
+button.addEventListener('click', createGrid);
+
+
+
 function createGrid(gridSize){
     clearGrid();
     if(gridSize != initialSize) gridSize = askSize();
@@ -17,7 +24,8 @@ function createGrid(gridSize){
             }
         }
     squares = [...document.getElementsByClassName('square')];
-    squares.forEach((square) => square.addEventListener('mouseover', () => square.classList.add('colored')));
+    //squares.forEach((square) => square.addEventListener('mouseover', () => square.classList.add('colored')));
+    squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = randomColor()));
     
 }
 
@@ -32,15 +40,16 @@ function askSize(){
         if(isNaN(size)) {
             alert("Please enter a number!!");
             continue;
-        }else return(size);
-    };
-    
+        } 
+    }
+    return(size);
 }
 
-createGrid(initialSize);
+function randomColor(){
+    let rgb = [];
+    for(let i = 0; i < 3; i++){
+        rgb[i] = Math.floor(Math.random() * 256);
+    }
 
-
-
-const button = document.getElementById('button');
-button.addEventListener('click', createGrid);
-
+    return(`rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`)
+}
