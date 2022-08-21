@@ -2,13 +2,15 @@ const container = document.getElementById('container');
 let lines = [];
 let squares = [];
 let initialSize = 16;
+let choice = 'single';
 
 createGrid(initialSize);
 
 const button = document.getElementById('button');
 button.addEventListener('click', createGrid);
 
-
+const selectElement = document.getElementById('select');
+selectElement.addEventListener('change', toggle);
 
 function createGrid(gridSize){
     clearGrid();
@@ -20,14 +22,23 @@ function createGrid(gridSize){
         for(let j = 0; j < gridSize; j++){
             squares[j] = document.createElement('div');
             squares[j].classList.add('square');
-            squares[j].style.backgroundColor = 'rgb(255,255,255)'
+            squares[j].style.backgroundColor = 'rgb(255,255,255)';
             lines[i].appendChild(squares[j]);
             }
         }
     squares = [...document.getElementsByClassName('square')];
-    //squares.forEach((square) => square.addEventListener('mouseover', () => square.classList.add('colored')));
-    //squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = randomColor()));
-    squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = blackGradient(square.style.backgroundColor)));
+
+    if(choice === 'single') {
+        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = 'blueviolet'));
+    }
+    if(choice === 'random') {
+        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = randomColor()));
+    }
+    if(choice === 'gradient') {
+        squares.forEach((square) =>
+            square.addEventListener('mouseover', () => square.style.backgroundColor = blackGradient(square.style.backgroundColor)));
+        }
+    
 }
 
 function clearGrid() {
@@ -59,4 +70,9 @@ function blackGradient(rgbString){
     let rgbValue = rgbString.match(/\d+/);
     rgbValue = rgbValue - 255/10;
     return(rgbString.replaceAll(/\d+/g, rgbValue));
+}
+
+function toggle(e){
+    choice = e.target.value;
+    return(choice);
 }
