@@ -10,7 +10,7 @@ const button = document.getElementById('button');
 button.addEventListener('click', createGrid);
 
 const selectElement = document.getElementById('select');
-selectElement.addEventListener('change', toggle);
+selectElement.addEventListener('change', dropdownChoice);
 
 function createGrid(gridSize){
     clearGrid();
@@ -28,17 +28,6 @@ function createGrid(gridSize){
         }
     squares = [...document.getElementsByClassName('square')];
 
-    if(choice === 'single') {
-        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = 'blueviolet'));
-    }
-    if(choice === 'random') {
-        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = randomColor()));
-    }
-    if(choice === 'gradient') {
-        squares.forEach((square) =>
-            square.addEventListener('mouseover', () => square.style.backgroundColor = blackGradient(square.style.backgroundColor)));
-        }
-    
 }
 
 function clearGrid() {
@@ -68,11 +57,22 @@ function randomColor(){
 
 function blackGradient(rgbString){
     let rgbValue = rgbString.match(/\d+/);
+    if (rgbValue === '0') return;
     rgbValue = rgbValue - 255/10;
     return(rgbString.replaceAll(/\d+/g, rgbValue));
 }
 
-function toggle(e){
+function dropdownChoice(e){
     choice = e.target.value;
-    return(choice);
+
+    if(choice === 'single') {
+        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = 'blueviolet'));
+    }
+    if(choice === 'random') {
+        squares.forEach((square) => square.addEventListener('mouseover', () => square.style.backgroundColor = randomColor()));
+    }
+    if(choice === 'gradient') {
+        squares.forEach((square) =>
+            square.addEventListener('mouseover', () => square.style.backgroundColor = blackGradient(square.style.backgroundColor)));
+        };
 }
